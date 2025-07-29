@@ -12,3 +12,4 @@ streamlit==1.47.1
 
 # For deployment helpers
 joblib==1.5.1  # to save/load the model
+
