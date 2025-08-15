@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Hypertension Risk Prediction</title>
+  </head>
+  <body>
+    <h1>Hypertension Risk Prediction</h1>
+
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Predict</button>
+    </form>
+  </body>
+</html>

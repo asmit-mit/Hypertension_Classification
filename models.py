@@ -89,7 +89,7 @@ for name, model in models.items():
     os.makedirs(model_folder, exist_ok=True)
 
     # save models
-    joblib.dump(model, os.path.join(model_folder, f"{name.replace(' ', '_')}.joblib"))
+    joblib.dump(model, os.path.join(model_folder, "model.joblib"))
 
     # save the resuls
     with open(os.path.join(model_folder, "metrics.txt"), "w") as f:
