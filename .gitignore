@@ -1,1 +1,8 @@
 catboost_info
+website/website/__pycache__
+website/website/__init__.py
+website/home/migrations
+website/home/__init__.py
+website/home/__pycache__
+website/predictions/migrations
+website/predictions/__init__.py
