@@ -6,3 +6,4 @@ website/home/__init__.py
 website/home/__pycache__
 website/predictions/migrations
 website/predictions/__init__.py
+website/predictions/__pycache__

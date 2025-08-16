@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title></title>
+  {% load static %}
+  <link href="{% static 'home/style.css' %}" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Nunito+Sans:wght@400;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div class="header">
+    <div class="text-content">
+      <p id="page-heading">Know Your Hypertension Risk</p>
+      <p id="text">Smart AI powered tool to keep your heart healthy and catch risks early.</p>
+      <p id="border"></p>
+      <p id="where-we-come-in">
+        The only reliable way to detect hypertension is through a blood pressure measurement by a
+        healthcare professional. While self-monitoring with automated devices can be convenient, a
+        professional evaluation is crucial to assess your risk and any related conditions. That's
+        why we've created an AI powered risk analyzer that uses insights from your daily life to
+        help you understand your risk of hypertension quickly, easily, and accurately.
+      </p>
+      <p id="border"></p>
+      <div class="risk-button-area">
+        <a href="{% url 'prediction_form' %}" class="risk-button">Find Your Risk Today!</a>
+      </div>
+
+    </div>
+    <img src="{% static 'home/bp_measuring.jpeg' %}" alt="BP MEASUREING IMG">
+  </div>
+  <div class="content">
+    <div class="section-1">
+      <div class="section-1-text">
+        <p id="section-heading">What is hypertension?
+        <p>
+        <p>
+          High blood pressure is a common condition that affects the body's arteries. It's also
+          called hypertension. If you have high blood pressure, the force of the blood pushing
+          against the artery walls is consistently too high. The heart has to work harder to pump
+          blood.
+          <br />
+          <br />
+          Blood pressure is measured in millimeters of mercury (mm Hg). In general, hypertension is
+          a blood pressure reading of 130/80 mm Hg or higher.
+          <br />
+          <br />
+          Hypertension is a primary risk factor for cardiovascular disease, including stroke, heart
+          attack, heart failure, and aneurysm. Managing blood pressure is vital for preserving
+          health and reducing the risk of these dangerous conditions.
+        </p>
+      </div>
+      <table>
+        <tr>
+          <th></th>
+          <th>Systolic (mm Hg)</th>
+          <th>Diastolic (mm Hg)</th>
+        </tr>
+        <tr>
+          <th>Normal Blood Pressure</th>
+          <td>less than 120</td>
+          <td>less than 80</td>
+        </tr>
+        <tr>
+          <th>Elevated Blood Pressure</th>
+          <td>120-129</td>
+          <td>less than 80</td>
+        </tr>
+        <tr>
+          <th>Grade 1 hypertension</th>
+          <td>130-139</td>
+          <td>80-89</td>
+        </tr>
+        <tr>
+          <th>Grade 2 hypertension</th>
+          <td>140 and over</td>
+          <td>90 and over</td>
+        </tr>
+      </table>
+    </div>
+    <div class="section-2">
+      <p id="section-heading">Symptoms</p>
+      <p class="section-2-text">
+        People with very high blood pressure (usually 180/120 or higher) can experience some of the below mentioned
+        symptoms.
+      </p>
+      <ul class="symptoms-list">
+        <div class="symptoms-list-first-row">
+          <li>Severe headaches</li>
+          <li>Chest pain</li>
+          <li>Dizziness</li>
+          <li>Difficulty breathing</li>
+          <li>Nausea</li>
+          <li>Vomiting</li>
+        </div>
+        <div class="symptoms-list-second-row">
+          <li>Blurred vision</li>
+          <li>Anxiety</li>
+          <li>Confusion</li>
+          <li>Buzzing in the ears</li>
+          <li>Nosebleeds</li>
+          <li>Abnormal heart rhythm</li>
+        </div>
+      </ul>
+      <p>
+      </p>
+    </div>
+  </div>
+  <p>
+  <div class="footer">
+    Remember: Our AI models provide risk insights, but they’re not a diagnosis. If you’re unsure
+    about your blood pressure, we encourage regular checkups to keep yourself safe from any
+    heart related issues.
+    </p>
+  </div>
+</body>
+
+</html>
