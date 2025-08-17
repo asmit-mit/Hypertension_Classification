@@ -21,10 +21,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-&701z#nn=h%h%^&5t&u50_t^x9w^gl^#3s^19^gll#fmc%z2c6"
+secret_file = Path("/etc/secrets/secret_key.text")
+
+# Read secret from file
+try:
+    SECRET_KEY = secret_file.read_text().strip()
+except FileNotFoundError:
+    raise RuntimeError("Secret key file not found at /etc/secrets/secret_key.text")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
