@@ -2,14 +2,16 @@ from pathlib import Path
 
 import joblib
 from django.conf import settings
-from django.shortcuts import render
 from django.views.generic.edit import FormView
 
 from .forms import PredictionForm
 
+
 ML_MODELS_DIR = settings.BASE_DIR / "predictions" / "ml_models"
 
 models = {}
+
+scaler = joblib.load(ML_MODELS_DIR / "scaler.joblib")
 
 for model_dir in ML_MODELS_DIR.iterdir():
     if model_dir.is_dir():
@@ -22,7 +24,6 @@ for model_dir in ML_MODELS_DIR.iterdir():
 class PredictionFormView(FormView):
     template_name = "prediction_form.html"
     form_class = PredictionForm
-    success_url = "/results/"
 
     def form_valid(self, form):
         features = [
@@ -38,10 +39,30 @@ class PredictionFormView(FormView):
         ]
 
         results = {}
+        features_scaled = scaler.transform([features])
+
+        high_risk_votes = 0
+
         for model_name, model in models.items():
-            prediction = model.predict([features])[0]
+            probability = model.predict_proba(features_scaled)[0][1]
+            prediction = round(round(probability, 4) * 100, 4)
             results[model_name] = prediction
 
-        self.request.session["prediction_result"] = results
+            if prediction >= 50:
+                high_risk_votes += 1
 
-        return super().form_valid(form)
+        total_models = len(models)
+        if high_risk_votes > (total_models / 2) - 1:
+            message = (
+                "The majority of the models conclude that you might have a risk of hypertension. "
+                "We encourage you to get checked."
+            )
+        else:
+            message = (
+                "Majority of our models say that you don’t have a risk, but we still encourage you "
+                "to get checked if you're unsure about your health."
+            )
+
+        return self.render_to_response(
+            self.get_context_data(form=form, results=results, message=message)
+        )

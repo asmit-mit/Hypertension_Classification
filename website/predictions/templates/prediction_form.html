@@ -2,15 +2,47 @@
 <html>
 
 <head>
-  <title>Hypertension Risk Prediction</title>
+  <title>hypertension risk predictor</title>
+  {% load static %}
+  <link href="{% static 'predictions/style.css' %}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Nunito+Sans:wght@400;700&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
-  <h1>Hypertension Risk Prediction</h1>
 
-  <form method="post">
-    {% csrf_token %} {{ form.as_p }}
-    <button type="submit">Predict</button>
-  </form>
+  <h1>Hypertension Risk Predictor</h1>
+  <div class="content">
+    <div class="form-container">
+      <form method="post" class="user-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <ul class="buttons">
+          <li><button type="submit">Get Results</button></li>
+          <li><a href="{% url 'home' %}" class="home-button">Back to home</a></li>
+        </ul>
+      </form>
+    </div>
+
+    {% if results %}
+    <div class="results">
+      <h2>Prediction Results</h2>
+      <ul>
+        <div class="model-pred-heading" style="font-size: 35px;">
+          <li>Models</li>
+          <li>Risk %age</li>
+        </div>
+        {% for model_name, prediction in results.items %}
+        <div class="model-pred">
+          <li>{{ model_name }}</li>
+          <li>{{ prediction }}%</li>
+        </div>
+        {% endfor %}
+      </ul>
+      <p id="result-conclusion">{{ message }}</p>
+    </div>
+    {% endif %}
+  </div>
 </body>
+
 </html>
