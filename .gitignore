@@ -8,3 +8,4 @@ website/predictions/migrations
 website/predictions/__init__.py
 website/predictions/__pycache__
 website/__pycache__
+website/staticfiles
