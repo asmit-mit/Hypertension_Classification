@@ -1,7 +1,7 @@
 html,
 body {
   height: calc(100% - 5px);
-  min-width: 1650px;
+  min-width: 1550px;
 }
 
 @keyframes bodyGlow {
@@ -13,15 +13,17 @@ body {
 
   40%,
   60% {
-    text-shadow: 0 0 10px lightyellow,
+    text-shadow:
+      0 0 10px lightyellow,
       0 0 20px gold;
   }
 }
 
+
 body {
   display: flex;
   flex-direction: column;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: "Nunito Sans", sans-serif;
   margin: 0;
   padding: 0;
   background-color: #222222;
@@ -48,7 +50,7 @@ p {
 
 #page-heading,
 #section-heading {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 #border {

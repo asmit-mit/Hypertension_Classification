@@ -54,6 +54,8 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
+joblib.dump(scaler, os.path.join(attempt_dir, "scaler.joblib"))
+
 # all the models we will train
 models = {
     "Logistic Regression": LogisticRegression(max_iter=1000),
