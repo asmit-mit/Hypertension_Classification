@@ -18,13 +18,19 @@ from sklearn.metrics import (
     precision_recall_curve,
     roc_curve,
 )
+
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 
+from xgboost import XGBClassifier
+from catboost import CatBoostClassifier
+from lightgbm import LGBMClassifier
+
 warnings.filterwarnings("ignore")
+
 
 # this is where the results will be stored
 base_dir = "results"
@@ -57,6 +63,7 @@ X_test_scaled = scaler.transform(X_test)
 joblib.dump(scaler, os.path.join(attempt_dir, "scaler.joblib"))
 
 # all the models we will train
+# all the models we will train
 models = {
     "Logistic Regression": LogisticRegression(max_iter=1000),
     "Decision Tree": DecisionTreeClassifier(),
@@ -64,6 +71,30 @@ models = {
     "Gradient Boosting": GradientBoostingClassifier(),
     "Support Vector Machine": SVC(probability=True),
     "K-Nearest Neighbors": KNeighborsClassifier(),
+    "XGBoost": XGBClassifier(
+        n_estimators=200,
+        learning_rate=0.1,
+        max_depth=5,
+        subsample=0.8,
+        colsample_bytree=0.8,
+        random_state=42,
+        use_label_encoder=False,
+        eval_metric="logloss"
+    ),
+    "CatBoost": CatBoostClassifier(
+        iterations=200,
+        learning_rate=0.1,
+        depth=6,
+        loss_function="Logloss",
+        verbose=0,
+        random_state=7
+    ),
+    "LightGBM": LGBMClassifier(
+        n_estimators=200,
+        learning_rate=0.1,
+        max_depth=-1,
+        random_state=42
+    ),
 }
 
 # PCA for visualization (but this is very shit lmao, 2 components aint cutting it)
