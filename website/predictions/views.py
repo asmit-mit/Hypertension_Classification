@@ -26,16 +26,82 @@ class PredictionFormView(FormView):
     form_class = PredictionForm
 
     def form_valid(self, form):
+        age = form.cleaned_data["age"]
+        salt_intake = form.cleaned_data["salt_intake"]
+        stress_score = form.cleaned_data["stress_score"]
+        sleep_duration = form.cleaned_data["sleep_duration"]
+        bmi = form.cleaned_data["bmi"]
+        family_history = form.cleaned_data["family_history"]
+        exercise_level = form.cleaned_data["exercise_level"]
+        smoking_status = form.cleaned_data["smoking_status"]
+
+        if bmi < 18.5:
+            bmi_underweight = 1
+            bmi_overweight = 0
+            bmi_obese = 0
+        elif 25 <= bmi < 30:
+            bmi_underweight = 0
+            bmi_overweight = 1
+            bmi_obese = 0
+        elif bmi >= 30:
+            bmi_underweight = 0
+            bmi_overweight = 0
+            bmi_obese = 1
+        else:
+            bmi_underweight = 0
+            bmi_overweight = 0
+            bmi_obese = 0
+
+        if age < 30:
+            age_young = 1
+            age_middle = 0
+            age_senior = 0
+        elif 30 <= age < 60:
+            age_young = 0
+            age_middle = 1
+            age_senior = 0
+        else:
+            age_young = 0
+            age_middle = 0
+            age_senior = 1
+
+        if salt_intake <= 8:
+            salt_moderate = 0
+            salt_high = 0
+        elif 8 < salt_intake <= 10:
+            salt_moderate = 1
+            salt_high = 0
+        else:
+            salt_moderate = 0
+            salt_high = 1
+
+        risk_score = (
+            (age / 100) * 0.3 +
+            (bmi / 40) * 0.25 +
+            (salt_intake / 15) * 0.2 +
+            (stress_score / 10) * 0.15 +
+            (1 if family_history == "Yes" else 0) * 0.1
+        )
+
         features = [
-            form.cleaned_data["age"],
-            form.cleaned_data["salt_intake"],
-            form.cleaned_data["stress_score"],
-            form.cleaned_data["sleep_duration"],
-            form.cleaned_data["bmi"],
-            1 if form.cleaned_data["family_history"] == "Yes" else 0,
-            1 if form.cleaned_data["exercise_level"] == "Low" else 0,
-            1 if form.cleaned_data["exercise_level"] == "Moderate" else 0,
-            1 if form.cleaned_data["smoking_status"] == "Smoker" else 0,
+            age,
+            salt_intake,
+            stress_score,
+            sleep_duration,
+            bmi,
+            risk_score,
+            1 if family_history == "Yes" else 0,
+            1 if exercise_level == "Low" else 0,
+            1 if exercise_level == "Moderate" else 0,
+            1 if smoking_status == "Smoker" else 0,
+            bmi_obese,
+            bmi_overweight,
+            bmi_underweight,
+            age_middle,
+            age_senior,
+            age_young,
+            salt_moderate,
+            salt_high,
         ]
 
         results = {}
