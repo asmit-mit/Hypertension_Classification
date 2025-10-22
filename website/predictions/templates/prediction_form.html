@@ -5,6 +5,7 @@
   <title>Risk Predictor</title>
   {% load static %}
   <link href="{% static 'predictions/style.css' %}" rel="stylesheet">
+  <script src="{% static 'predictions/scripts.js' %}"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Nunito+Sans:wght@400;700&display=swap"
     rel="stylesheet">
 </head>
@@ -18,7 +19,7 @@
         {% csrf_token %}
         {{ form.as_p }}
         <ul class="buttons">
-          <li><button type="submit">Get Results</button></li>
+          <li><button type="submit" class="submit-button">Get Results</button></li>
           <li><a href="{% url 'home' %}" class="home-button">Back to home</a></li>
         </ul>
       </form>
@@ -40,9 +41,39 @@
         {% endfor %}
       </ul>
       <p id="result-conclusion">{{ message }}</p>
+      <button class="email-button">E-mail Results</button>
     </div>
     {% endif %}
   </div>
+  <dialog id="email-modal">
+    <form method="POST" action="{% url 'send_email' %}">
+      {% csrf_token %}
+      <ul>
+        <li>
+          <h3>Save your Results</h3>
+        </li>
+        <li>
+          <label for="user_email">Enter Your Email:</label><br>
+          <input type="email" id="user_email" name="user_email" required><br><br>
+        </li>
+        <li>
+          <div>
+            <button type="button" id="close-modal" class="submit-button">Close</button>
+            <button type="submit" class="submit-button">Send</button>
+          </div>
+        </li>
+      </ul>
+    </form>
+  </dialog>
+
+  <script>
+    const modalBtn = document.querySelector(".email-button");
+    const modal = document.querySelector("#email-modal");
+    const closeBtn = document.querySelector("#close-modal");
+
+    modalBtn.addEventListener("click", () => modal.showModal());
+    closeBtn.addEventListener("click", () => modal.close());
+  </script>
 </body>
 
 </html>

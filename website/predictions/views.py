@@ -2,6 +2,8 @@ from pathlib import Path
 
 import joblib
 from django.conf import settings
+from django.core.mail import send_mail
+from django.shortcuts import redirect
 from django.views.generic.edit import FormView
 
 from .forms import PredictionForm
@@ -132,3 +134,21 @@ class PredictionFormView(FormView):
         return self.render_to_response(
             self.get_context_data(form=form, results=results, message=message)
         )
+
+
+def send_email(request):
+    if request.method == "POST":
+        user_email = request.POST.get("user_email")
+        subject = "Hello from HyperCheck!"
+        message = "Thankyou for using our website!"
+        sender = "test@test.com"
+
+        send_mail(
+            subject,
+            message,
+            sender,
+            [user_email],
+            fail_silently=False,
+        )
+
+    return redirect("home")
