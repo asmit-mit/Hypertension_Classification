@@ -243,6 +243,7 @@ h1 {
   flex-direction: column;
   margin: 0;
   padding: 0;
+  gap: 20px;
 }
 
 #email-modal li:first-child {
