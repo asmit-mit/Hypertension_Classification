@@ -14,3 +14,4 @@ whitenoise==6.9.0
 catboost==1.2.8
 xgboost==3.0.2
 lightgbm==4.6.0
+dotenv==0.9.9
