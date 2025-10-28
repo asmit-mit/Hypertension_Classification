@@ -56,6 +56,14 @@
           <label for="user_email">Enter Your Email:</label><br>
           <input type="email" id="user_email" name="user_email" required><br><br>
         </li>
+
+        {% if results %}
+          {% for model_name, prediction in results.items %}
+            <input type="hidden" name="model_{{ model_name }}" value="{{ prediction }}">
+          {% endfor %}
+          <input type="hidden" name="message" value="{{ message }}">
+        {% endif %}
+
         <li>
           <div>
             <button type="button" id="close-modal" class="submit-button">Close</button>

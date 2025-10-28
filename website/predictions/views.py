@@ -139,16 +139,36 @@ class PredictionFormView(FormView):
 def send_email(request):
     if request.method == "POST":
         user_email = request.POST.get("user_email")
-        subject = "Hello from HyperCheck!"
-        message = "Thankyou for using our website!"
-        sender = "test@test.com"
+        message_text = request.POST.get("message") or "No message provided."
+
+        model_results = {
+            key.replace("model_", ""): value
+            for key, value in request.POST.items()
+            if key.startswith("model_")
+        }
+
+        results_text = "\n".join(
+            [f"{model}: {pred}%" for model, pred in model_results.items()]
+        )
+
+        full_message = (
+            "Thank you for using HyperCheck!\n\n"
+            "Here are your hypertension risk predictions:\n"
+            f"{results_text}\n\n"
+            f"Conclusion: {message_text}\n\n"
+            "Stay healthy,\n"
+            "— The HyperCheck Team"
+        )
+
+        subject = "Your Hypertension Risk Results — HyperCheck"
+        sender = "hypercheck230905368@gmail.com"
 
         send_mail(
             subject,
-            message,
+            full_message,
             sender,
             [user_email],
-            fail_silently=False,
+            fail_silently=True,
         )
 
     return redirect("home")

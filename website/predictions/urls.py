@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
     path("", views.PredictionFormView.as_view(), name="prediction_form"),
-    path("/", views.send_email, name="send_email"),
+    path("send_mail", views.send_email, name="send_email"),
 ]
